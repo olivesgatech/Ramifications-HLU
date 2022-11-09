@@ -1,0 +1,48 @@
+project: 'quantification of label uncertainty'
+# ckpt_dir: '' 
+# out_dir: ''
+device: 'cuda'
+seed: 0
+print_freq: 50
+
+# ------ uncertainty quantification configs ------
+uncertain_quant:
+  method: '' # 'Ensemble', 'MCD', 'DUQ'
+  backbone: 
+    arch: 'resnet'
+    depth: 18
+
+# ------ train dataset configs ----
+trainset:
+  root: '/content/dataset/'
+  name: 'cifar10'
+  noise_type: 'aggre' # opts for cifar-N trainset: 'clean, aggre, worst, rand1, rand2, rand3, clean100, noisy100'
+  # noise_path: 
+  noise_human: True
+  val_ratio: 0.1
+  nlbl:
+    type: 'human'
+  unclbl:
+    dilute:
+      noise_type: 'clean'  # noise types of given labels before dilution
+
+# ------ test dataset configs ----
+# testset:
+
+# dataloader:
+#   num_workers: 4
+
+# ------ training configs ----
+solver:
+  num_epoch: 100
+  batch_size: 128
+  optimizer: 'SGD'
+  lr: 0.1
+  # scheduler: 'exp'
+  # gamma: 0.9999
+
+# ------ test configs ----
+test:
+  batch_size: 128
+  # inference: True
+  # epoch:
